@@ -1,109 +1,259 @@
-// src/components/sections/About.tsx - Clean About Section
-import { Code, Coffee, Lightbulb, Target } from 'lucide-react'
+"use client"
+
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+import { Code, Coffee, Lightbulb, Target, GraduationCap, Award } from 'lucide-react'
 
 export function About() {
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true
+  })
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, 0.05, 0.01, 0.9]
+      }
+    }
+  }
+
+  const values = [
+    {
+      icon: Code,
+      title: "Clean Code",
+      description: "Writing maintainable and efficient solutions",
+      color: "from-blue-400 to-cyan-400"
+    },
+    {
+      icon: Lightbulb,
+      title: "Innovation",
+      description: "Always exploring new technologies and methods",
+      color: "from-yellow-400 to-orange-400"
+    },
+    {
+      icon: Target,
+      title: "Problem Solving",
+      description: "Finding elegant solutions to complex challenges",
+      color: "from-green-400 to-emerald-400"
+    },
+    {
+      icon: Coffee,
+      title: "Continuous Learning",
+      description: "Always growing and improving my skills",
+      color: "from-purple-400 to-pink-400"
+    }
+  ]
+
+  const education = [
+    {
+      degree: "Master of Computer Application",
+      school: "MES's Institute, Pune",
+      duration: "2023-2025",
+      cgpa: "7.88/10",
+      description: "Focus: Advanced Java, Spring Boot, System Design"
+    },
+    {
+      degree: "Bachelor of Computer Application", 
+      school: "K. J. Somaiya College",
+      duration: "2020-2023",
+      cgpa: "8.65/10",
+      description: "Foundation: Programming, Database Systems, Web Development"
+    }
+  ]
+
   return (
-    <section id="about" className="py-24 bg-gray-900/50">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="about" className="py-32 relative overflow-hidden">
+      
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(59,130,246,0.1), transparent)',
+            filter: 'blur(80px)'
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            About <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Me</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="text-center mb-20"
+        >
+          <motion.h2 
+            variants={itemVariants}
+            className="text-5xl md:text-6xl font-bold text-white mb-6"
+          >
+            About{' '}
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+              Me
+            </span>
+          </motion.h2>
+          <motion.p 
+            variants={itemVariants}
+            className="text-xl text-gray-400 max-w-3xl mx-auto"
+          >
             Passionate developer focused on creating efficient backend solutions
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 items-start">
           
           {/* Left Side - Story */}
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white">My Journey</h3>
-              <p className="text-gray-300 leading-relaxed">
-                I'm a passionate MCA student with expertise in <span className="text-blue-400">Java</span>, <span className="text-green-400">Spring Boot</span>, and full-stack development. I specialize in building scalable backend systems and have hands-on experience with real-world projects.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                Currently seeking opportunities as a <span className="text-purple-400">Java Developer</span> or <span className="text-purple-400">Backend Developer</span> to contribute to innovative tech solutions and continue learning in a practical environment.
-              </p>
-            </div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="space-y-8"
+          >
+            <motion.div variants={itemVariants} className="space-y-6">
+              <h3 className="text-3xl font-bold text-white">My Journey</h3>
+              <div className="space-y-4 text-gray-300 leading-relaxed">
+                <p>
+                  I'm a passionate <span className="text-blue-400 font-semibold">MCA student</span> with expertise in{' '}
+                  <span className="text-emerald-400 font-semibold">Java</span>,{' '}
+                  <span className="text-purple-400 font-semibold">Spring Boot</span>, and full-stack development. 
+                  I specialize in building scalable backend systems and have hands-on experience with real-world projects.
+                </p>
+                <p>
+                  Currently seeking opportunities as a{' '}
+                  <span className="text-blue-400 font-semibold">Java Developer</span> or{' '}
+                  <span className="text-emerald-400 font-semibold">Backend Developer</span> to contribute to 
+                  innovative tech solutions and continue learning in a practical environment.
+                </p>
+              </div>
+            </motion.div>
 
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white">What Drives Me</h3>
+            <motion.div variants={itemVariants} className="space-y-6">
+              <h3 className="text-3xl font-bold text-white">What Drives Me</h3>
               <p className="text-gray-300 leading-relaxed">
-                I love solving complex problems and turning ideas into functional applications. My approach combines technical expertise with creative problem-solving to deliver solutions that make a real impact.
+                I love solving complex problems and turning ideas into functional applications. 
+                My approach combines technical expertise with creative problem-solving to deliver 
+                solutions that make a real impact.
               </p>
-            </div>
+            </motion.div>
 
             {/* Current Focus */}
-            <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6">
-              <h4 className="text-lg font-semibold text-white mb-3">Currently Focused On</h4>
-              <ul className="space-y-2 text-gray-300">
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  Advanced Spring Boot development
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  System design and architecture
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                  Building scalable REST APIs
-                </li>
+            <motion.div 
+              variants={itemVariants}
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300"
+            >
+              <h4 className="text-xl font-semibold text-white mb-4">Currently Focused On</h4>
+              <ul className="space-y-3">
+                {[
+                  { text: "Advanced Spring Boot development", color: "text-green-400" },
+                  { text: "System design and architecture", color: "text-blue-400" },
+                  { text: "Building scalable REST APIs", color: "text-purple-400" }
+                ].map((item, index) => (
+                  <motion.li
+                    key={index}
+                    className="flex items-center gap-3"
+                    whileHover={{ x: 10 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className={`w-2 h-2 ${item.color.replace('text-', 'bg-')} rounded-full`} />
+                    <span className={`${item.color} font-medium`}>{item.text}</span>
+                  </motion.li>
+                ))}
               </ul>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Side - Values & Interests */}
-          <div className="space-y-8">
+          {/* Right Side - Values & Education */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="space-y-10"
+          >
             
-            {/* Values */}
-            <div className="grid grid-cols-2 gap-6">
-              <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
-                <Code className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-                <h4 className="font-semibold text-white mb-2">Clean Code</h4>
-                <p className="text-gray-400 text-sm">Writing maintainable and efficient solutions</p>
+            {/* Values Grid */}
+            <motion.div variants={itemVariants}>
+              <h3 className="text-2xl font-bold text-white mb-8">Core Values</h3>
+              <div className="grid grid-cols-2 gap-6">
+                {values.map((value, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-all duration-300 group"
+                    whileHover={{ 
+                      scale: 1.05,
+                      y: -10
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <motion.div
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-r ${value.color} p-3 mx-auto mb-4 group-hover:scale-110 transition-transform`}
+                    >
+                      <value.icon className="w-full h-full text-white" />
+                    </motion.div>
+                    <h4 className="font-semibold text-white mb-2">{value.title}</h4>
+                    <p className="text-gray-400 text-sm leading-relaxed">{value.description}</p>
+                  </motion.div>
+                ))}
               </div>
-              
-              <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
-                <Lightbulb className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
-                <h4 className="font-semibold text-white mb-2">Innovation</h4>
-                <p className="text-gray-400 text-sm">Always exploring new technologies and methods</p>
-              </div>
-              
-              <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
-                <Target className="w-8 h-8 text-green-400 mx-auto mb-3" />
-                <h4 className="font-semibold text-white mb-2">Problem Solving</h4>
-                <p className="text-gray-400 text-sm">Finding elegant solutions to complex challenges</p>
-              </div>
-              
-              <div className="bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
-                <Coffee className="w-8 h-8 text-orange-400 mx-auto mb-3" />
-                <h4 className="font-semibold text-white mb-2">Continuous Learning</h4>
-                <p className="text-gray-400 text-sm">Always growing and improving my skills</p>
-              </div>
-            </div>
+            </motion.div>
 
             {/* Education */}
-            <div className="bg-gray-800/20 border border-gray-700/50 rounded-xl p-6">
-              <h4 className="text-lg font-semibold text-white mb-4">Education</h4>
-              <div className="space-y-4">
-                <div>
-                  <h5 className="font-medium text-white">Master of Computer Application</h5>
-                  <p className="text-gray-400 text-sm">MES's Institute, Pune • 2023-2025</p>
-                  <p className="text-gray-500 text-sm">Focus: Advanced Java, Spring Boot, System Design</p>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">Bachelor of Computer Application</h5>
-                  <p className="text-gray-400 text-sm">K. J. Somaiya College • 2020-2023</p>
-                  <p className="text-gray-500 text-sm">Foundation: Programming, Database Systems, Web Development</p>
-                </div>
+            <motion.div variants={itemVariants}>
+              <h3 className="text-2xl font-bold text-white mb-8">Education</h3>
+              <div className="space-y-6">
+                {education.map((edu, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300"
+                    whileHover={{ x: 10 }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <motion.div
+                        className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-400 to-purple-400 p-3 flex-shrink-0"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <GraduationCap className="w-full h-full text-white" />
+                      </motion.div>
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-white text-lg">{edu.degree}</h5>
+                        <p className="text-blue-400 font-medium">{edu.school}</p>
+                        <p className="text-gray-400 text-sm mb-2">{edu.duration} • CGPA: {edu.cgpa}</p>
+                        <p className="text-gray-300 text-sm">{edu.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,15 +1,406 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
 
-* {
+/* === RESET & BASE STYLES === */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   background: #000000;
   color: #ffffff;
-  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* === FORMLESS.XYZ STYLE ANIMATIONS === */
+
+/* Gradient Text Animation */
+@keyframes gradientShift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    background-position: 25% 50%; 
+    filter: hue-rotate(90deg);
+  }
+  50% { 
+    background-position: 100% 50%; 
+    filter: hue-rotate(180deg);
+  }
+  75% { 
+    background-position: 75% 50%; 
+    filter: hue-rotate(270deg);
+  }
+}
+
+/* Floating Animation for Shapes */
+@keyframes floatUp {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.3;
+  }
+  25% { 
+    transform: translateY(-20px) rotate(90deg) scale(1.1);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-30px) rotate(180deg) scale(1.2);
+    opacity: 1;
+  }
+  75% { 
+    transform: translateY(-20px) rotate(270deg) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* Light Beam Pulse */
+@keyframes lightPulse {
+  0%, 100% { 
+    opacity: 0.2;
+    transform: scale(1);
+    filter: blur(1px);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.5);
+    filter: blur(0.5px);
+  }
+}
+
+/* Particle Twinkle */
+@keyframes particleTwinkle {
+  0%, 100% { 
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(2);
+  }
+}
+
+/* Vapor Wave Background */
+@keyframes vaporWave {
+  0%, 100% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
+}
+
+/* Prism Rotation */
+@keyframes prismRotate {
+  from { 
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(360deg);
+  }
+}
+
+/* Gentle Pulse for Status Badge */
+@keyframes gentlePulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* === UTILITY CLASSES === */
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #10b981);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 5s ease-in-out infinite;
+}
+
+/* Floating Animation */
+.float-animation {
+  animation: floatUp 8s ease-in-out infinite;
+}
+
+.float-animation:nth-child(2) { animation-delay: 1s; }
+.float-animation:nth-child(3) { animation-delay: 2s; }
+.float-animation:nth-child(4) { animation-delay: 3s; }
+.float-animation:nth-child(5) { animation-delay: 4s; }
+
+/* Light Effects */
+.light-pulse {
+  animation: lightPulse 4s ease-in-out infinite;
+}
+
+.particle-twinkle {
+  animation: particleTwinkle 3s ease-in-out infinite;
+}
+
+.vapor-background {
+  background: linear-gradient(45deg, 
+    rgba(59,130,246,0.1), 
+    rgba(139,92,246,0.1), 
+    rgba(16,185,129,0.1),
+    rgba(59,130,246,0.1)
+  );
+  background-size: 400% 400%;
+  animation: vaporWave 15s ease-in-out infinite;
+}
+
+/* Prism Effects */
+.prism-rotate {
+  animation: prismRotate 30s linear infinite;
+}
+
+.status-pulse {
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+
+/* === COMPONENT STYLES === */
+
+/* Glass Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+.btn-outline {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Card Styles */
+.portfolio-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+/* Form Styles */
+.form-input {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-label {
+  color: #cbd5e1;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* === SCROLLBAR STYLING === */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+/* === RESPONSIVE TYPOGRAPHY === */
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 9rem; /* 144px */
+    line-height: 1;
+  }
+  
+  .hero-subtitle {
+    font-size: 3rem; /* 48px */
+  }
+  
+  .hero-description {
+    font-size: 1.5rem; /* 24px */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-title {
+    font-size: 6rem; /* 96px */
+    line-height: 1;
+  }
+  
+  .hero-subtitle {
+    font-size: 2rem; /* 32px */
+  }
+  
+  .hero-description {
+    font-size: 1.25rem; /* 20px */
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: 4rem; /* 64px */
+    line-height: 1;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem; /* 24px */
+  }
+  
+  .hero-description {
+    font-size: 1rem; /* 16px */
+  }
+  
+  /* Hide scrollbar on mobile */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* === UTILITY CLASSES === */
+.container-custom {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.section-padding {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* === SELECTION STYLING === */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+/* === LOADING STATES === */
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 25%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }

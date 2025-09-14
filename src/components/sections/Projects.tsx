@@ -1,207 +1,127 @@
-// src/components/sections/Projects.tsx - Clean Projects Showcase
-import { ExternalLink, Github, Calendar, Tag } from 'lucide-react'
+"use client"
+
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 export function Projects() {
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true })
+
   const projects = [
     {
-      id: 1,
-      title: "Face Recognition Attendance System",
-      description: "Real-time attendance system with 95% accuracy using Python, OpenCV, and machine learning algorithms for automatic face detection and timestamp logging.",
-      technologies: ["Python", "OpenCV", "dlib", "SQLite", "JavaScript", "HTML5", "CSS3"],
-      features: [
-        "95% face recognition accuracy",
-        "Real-time detection and logging", 
-        "Responsive web interface",
-        "Automatic timestamp management"
-      ],
-      github: "https://github.com/Najim4633/face-recognition-attendance",
-      live: "#",
-      date: "April 2025",
-      category: "AI/ML",
-      gradient: "from-blue-500 to-cyan-500"
+      title: "Face Recognition System",
+      subtitle: "AI/ML • Real-time Processing",
+      description: "95% accuracy facial recognition system built with Python, OpenCV, and machine learning algorithms.",
+      tech: ["Python", "OpenCV", "SQLite", "JavaScript"]
     },
     {
-      id: 2,
-      title: "eAuction Platform",
-      description: "Full-featured web-based auction system with real-time bidding logic, user authentication, automated timers, and complete auction lifecycle management.",
-      technologies: ["Django", "Python", "SQLite", "Bootstrap", "JavaScript", "HTML5"],
-      features: [
-        "Real-time bidding system",
-        "User authentication & authorization",
-        "Auction lifecycle management", 
-        "Automated bidding timers"
-      ],
-      github: "https://github.com/Najim4633/eauction-platform",
-      live: "#",
-      date: "September 2024",
-      category: "Web Development",
-      gradient: "from-purple-500 to-pink-500"
+      title: "eAuction Platform", 
+      subtitle: "Web Development • Real-time",
+      description: "Full-featured auction system with real-time bidding logic and complete lifecycle management.",
+      tech: ["Django", "Python", "Bootstrap", "JavaScript"]
     },
     {
-      id: 3,
       title: "Online Job Portal",
-      description: "Complete job portal solution with role-based access control, secure authentication, job posting/tracking, and comprehensive application management workflows.",
-      technologies: ["Java", "Spring Boot", "MySQL", "REST APIs", "HTML5", "CSS3"],
-      features: [
-        "Secure user authentication",
-        "Role-based access control",
-        "Job posting & tracking system",
-        "RESTful API architecture"
-      ],
-      github: "https://github.com/Najim4633/job-portal",
-      live: "#",
-      date: "February 2024", 
-      category: "Backend Development",
-      gradient: "from-emerald-500 to-teal-500"
+      subtitle: "Backend Development • Enterprise",
+      description: "Complete job portal with role-based access control and comprehensive application workflows.",
+      tech: ["Java", "Spring Boot", "MySQL", "REST APIs"]
     }
   ]
 
   return (
-    <section id="projects" className="py-24 bg-gray-900/50">
-      <div className="max-w-6xl mx-auto px-6">
-        
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Featured <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Projects</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            A showcase of my technical skills and problem-solving approach through real-world applications
-          </p>
-        </div>
+    <section className="py-32 bg-black text-white relative overflow-hidden">
+      
+      {/* Subtle geometric background */}
+      <div className="absolute inset-0">
+        <svg className="absolute top-1/4 left-1/4 w-96 h-96 opacity-5" viewBox="0 0 100 100">
+          <polygon points="50,5 85,25 85,75 50,95 15,75 15,25" fill="none" stroke="white" strokeWidth="0.5"/>
+        </svg>
+        <svg className="absolute bottom-1/4 right-1/4 w-64 h-64 opacity-5" viewBox="0 0 100 100">
+          <polygon points="50,15 75,35 60,65 40,65 25,35" fill="none" stroke="white" strokeWidth="0.5"/>
+        </svg>
+      </div>
 
-        {/* Projects Grid */}
-        <div className="space-y-12">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        
+        {/* Section header */}
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center mb-24"
+        >
+          <h2 className="text-6xl md:text-7xl font-thin tracking-wider text-white mb-8">
+            SELECTED WORK
+          </h2>
+          <div className="h-px w-24 bg-white/30 mx-auto" />
+        </motion.div>
+
+        {/* Projects grid */}
+        <div className="space-y-24">
           {projects.map((project, index) => (
-            <div 
-              key={project.id}
-              className="group bg-gray-800/30 border border-gray-700/50 rounded-2xl p-8 hover:bg-gray-800/50 hover:border-gray-600/50 transition-all duration-300"
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 100 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ 
+                duration: 1.2, 
+                delay: index * 0.3,
+                ease: [0.25, 0.1, 0.25, 1] 
+              }}
+              className="group relative"
             >
-              <div className={`grid lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                
-                {/* Project Info */}
-                <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+              <div className="border-t border-white/10 pt-12">
+                <div className="grid md:grid-cols-3 gap-12">
                   
-                  {/* Project Header */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 text-sm text-gray-400">
-                      <Calendar className="w-4 h-4" />
-                      <span>{project.date}</span>
-                      <span>•</span>
-                      <Tag className="w-4 h-4" />
-                      <span>{project.category}</span>
-                    </div>
-                    
-                    <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                  {/* Project number */}
+                  <div className="text-8xl font-thin text-white/20">
+                    0{index + 1}
+                  </div>
+                  
+                  {/* Project info */}
+                  <div className="space-y-4">
+                    <h3 className="text-3xl font-light text-white tracking-wide">
                       {project.title}
                     </h3>
-                    
-                    <p className="text-gray-300 leading-relaxed">
+                    <p className="text-sm uppercase tracking-widest text-gray-400">
+                      {project.subtitle}
+                    </p>
+                    <p className="text-gray-300 font-light leading-relaxed">
                       {project.description}
                     </p>
                   </div>
-
-                  {/* Features */}
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-white">Key Features:</h4>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {project.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center gap-2 text-gray-300 text-sm">
-                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-white">Technologies Used:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-3 py-1 bg-gray-700/50 border border-gray-600/50 rounded-full text-gray-300 text-sm font-medium hover:bg-gray-600/50 transition-colors"
+                  
+                  {/* Tech stack */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm uppercase tracking-widest text-gray-400">
+                      Technology
+                    </h4>
+                    <div className="space-y-2">
+                      {project.tech.map((tech, i) => (
+                        <motion.div
+                          key={i}
+                          className="text-white font-light"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={inView ? { opacity: 1, x: 0 } : {}}
+                          transition={{ delay: index * 0.3 + i * 0.1 }}
                         >
                           {tech}
-                        </span>
+                        </motion.div>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-4 pt-2">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
+                    
+                    {/* View project button */}
+                    <motion.button
+                      className="mt-8 text-sm uppercase tracking-widest text-white/60 hover:text-white transition-colors duration-300 border-b border-white/0 hover:border-white/30"
+                      whileHover={{ x: 10 }}
                     >
-                      <Github className="w-4 h-4" />
-                      View Code
-                    </a>
-                    
-                    {project.live !== "#" && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 border border-gray-600 hover:border-blue-400 text-gray-300 hover:text-blue-400 rounded-lg font-medium transition-all duration-300 hover:bg-gray-800/50"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Live Demo
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Project Visual */}
-                <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className={`relative bg-gradient-to-br ${project.gradient} rounded-xl p-8 aspect-video flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}>
-                    <div className="text-center space-y-4">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto">
-                        <Tag className="w-8 h-8 text-white" />
-                      </div>
-                      <h4 className="text-white font-bold text-lg">{project.title}</h4>
-                      <p className="text-white/80 text-sm">{project.category}</p>
-                    </div>
-                    
-                    {/* Decorative Elements */}
-                    <div className="absolute top-4 right-4 w-3 h-3 bg-white/30 rounded-full"></div>
-                    <div className="absolute bottom-4 left-4 w-2 h-2 bg-white/40 rounded-full"></div>
-                    <div className="absolute top-1/2 left-4 w-1 h-1 bg-white/50 rounded-full"></div>
+                      View Project →
+                    </motion.button>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-16 space-y-6">
-          <h3 className="text-2xl font-bold text-white">
-            Want to see more of my work?
-          </h3>
-          <p className="text-gray-400 text-lg">
-            Check out my GitHub for additional projects and contributions
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="https://github.com/Najim4633"
-              target="_blank"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-            >
-              <Github className="w-5 h-5" />
-              View GitHub Profile
-            </a>
-            
-            <a 
-              href="#contact"
-              className="inline-flex items-center gap-3 px-8 py-4 border-2 border-gray-600 hover:border-blue-400 text-gray-300 hover:text-blue-400 rounded-full font-semibold hover:bg-gray-800/50 transition-all duration-300"
-            >
-              Let's Work Together
-            </a>
-          </div>
         </div>
       </div>
     </section>

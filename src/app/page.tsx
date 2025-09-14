@@ -1,31 +1,25 @@
-// src/app/page.tsx - Clean Page Layout
-import { Navigation } from '@/components/Navigation'
+// src/app/page.tsx - Use Header component
+import { Header } from '@/components/sections/Header'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Skills } from '@/components/sections/Skills'
 import { Projects } from '@/components/sections/Projects'
 import { Contact } from '@/components/sections/Contact'
+import { Footer } from '@/components/sections/Footer'
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white">
-      
-      {/* Navigation */}
-      <Navigation />
-      
-      {/* All Sections */}
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-
-      {/* Footer */}
-      <footer className="py-8 border-t border-gray-800">
-        <div className="max-w-6xl mx-auto px-6 text-center text-gray-400">
-          <p>&copy; 2025 Najim Tamboli. Built with Next.js & Tailwind CSS.</p>
-        </div>
-      </footer>
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+      {/* <h1 className='text-red-900'>Najim Tamboli</h1> */}
     </div>
   )
 }
